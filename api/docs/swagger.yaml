@@ -1,0 +1,145 @@
+basePath: /api
+definitions:
+  models.Response:
+    properties:
+      data: {}
+      error:
+        type: boolean
+    type: object
+  models.SignupRequestModel:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.SignupResponseModel:
+    properties:
+      access_token:
+        type: string
+      id:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  models.UserProfile:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact:
+    email: toshkentovsardor.2003@gmail.com
+    name: Sardor Toshkentov
+  description: This is an auto-generated API Docs for Monolith-Template 2.0.
+  termsOfService: http://swagger.io/terms/
+  title: Monolith-Template 2.0
+  version: "0.1"
+paths:
+  /v1/register/signup/:
+    post:
+      consumes:
+      - application/json
+      description: SignUp API used for signing up.
+      parameters:
+      - description: SignupRequestModel
+        in: body
+        name: veridy_model
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignupRequestModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SignupResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      tags:
+      - register
+  /v1/user/get-my-profile/:
+    get:
+      consumes:
+      - application/json
+      description: GetProfile API gets my profile.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Gets My Profile
+      tags:
+      - user
+  /v1/user/profile/{user_id}/:
+    get:
+      consumes:
+      - application/json
+      description: GetProfile
+      parameters:
+      - description: user_id
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Profile
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

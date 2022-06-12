@@ -1,0 +1,11 @@
+p, any, /swagger/*, GET
+
+
+p, unauthorized, /api/v1/register/signup/, POST
+
+p, user, /api/v1/user/profile/:user_id/, GET
+p, user, /api/v1/user/get-my-profile/, GET
+
+g, authorized, any
+g, unauthorized, any
+g, admin, any
